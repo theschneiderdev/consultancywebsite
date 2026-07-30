@@ -1,0 +1,544 @@
+/* =========================================================
+   Ruhcrest — Stylesheet
+   A boutique strategy and transformation consultancy.
+   Design language: The Economist / GOV.UK / McKinsey.
+   Calm, evidence-based, restrained. No gradients, no glow.
+   ========================================================= */
+
+/* ---- 1. Design tokens ---------------------------------- */
+:root {
+  /* Colour */
+  --color-primary: #102A43;      /* deep navy — headings, nav, footer */
+  --color-secondary: #486581;    /* steel blue — supporting text, links */
+  --color-accent: #0EA5E9;       /* sky blue — used sparingly */
+  --color-background: #FFFFFF;
+  --color-text: #1F2937;
+  --color-light-grey: #F8FAFC;
+  --color-border: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  /* Type */
+  --font-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --fs-h1: clamp(2.25rem, 4vw + 1rem, 3.5rem);
+  --fs-h2: clamp(1.75rem, 2.4vw + 1rem, 2.5rem);
+  --fs-h3: clamp(1.25rem, 1.2vw + 1rem, 1.5rem);
+  --fs-lead: clamp(1.125rem, 1vw + 1rem, 1.375rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --lh-heading: 1.2;
+  --lh-body: 1.7;
+
+  /* Layout */
+  --max-width: 1200px;
+  --max-width-narrow: 760px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+  --space-7: 8rem;
+  --radius: 6px;
+  --shadow-soft: 0 1px 3px rgba(16, 42, 67, 0.06), 0 4px 16px rgba(16, 42, 67, 0.06);
+}
+
+/* ---- 2. Reset -------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+ul, ol { padding: 0; margin: 0; }
+figure { margin: 0; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-base);
+  color: var(--color-primary);
+  line-height: var(--lh-heading);
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+  letter-spacing: -0.01em;
+}
+h1 { font-size: var(--fs-h1); font-weight: 700; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-secondary); text-decoration: none; }
+a:hover { color: var(--color-primary); }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ---- 3. Layout helpers ------------------------------------ */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+.container-narrow {
+  max-width: var(--max-width-narrow);
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+.section { padding: var(--space-6) 0; }
+.section-tight { padding: var(--space-5) 0; }
+.section-grey { background: var(--color-light-grey); }
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: 0;
+}
+.eyebrow {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-2);
+}
+.lead {
+  font-size: var(--fs-lead);
+  color: var(--color-secondary);
+  line-height: 1.6;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-2) var(--space-3);
+  z-index: 200;
+  border-radius: 0 0 var(--radius) 0;
+}
+.skip-link:focus {
+  left: 0;
+  color: #fff;
+}
+
+/* ---- 4. Buttons ------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-base);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+.btn-primary:hover { background: #0B1F32; color: #fff; }
+.btn-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-border-strong);
+}
+.btn-secondary:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-light-grey);
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* ---- 5. Header / navigation --------------------------------- */
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.96);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: saturate(180%) blur(6px);
+}
+.nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+.brand span.brand-crest {
+  color: var(--color-accent);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  list-style: none;
+}
+.nav-links a {
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: var(--fs-small);
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+}
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+}
+.nav-cta { display: none; }
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+}
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-primary);
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.nav-toggle span::before { top: -6px; }
+.nav-toggle span::after { top: 6px; }
+
+@media (min-width: 860px) {
+  .nav-cta { display: inline-flex; }
+}
+
+@media (max-width: 859px) {
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    border-bottom: 1px solid var(--color-border);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .nav-links.is-open { max-height: 400px; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-links .nav-cta-mobile { display: block; padding: var(--space-2) var(--space-3); }
+}
+
+/* ---- 6. Hero ------------------------------------------------ */
+.hero {
+  padding: var(--space-7) 0 var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 760px;
+}
+.hero h1 { margin-bottom: var(--space-3); }
+.hero .lead { margin-bottom: var(--space-4); max-width: 620px; }
+.hero-contour {
+  position: absolute;
+  right: -60px;
+  bottom: -40px;
+  width: 46%;
+  min-width: 320px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .hero-contour { display: none; }
+}
+
+/* ---- 7. Cards ------------------------------------------------ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-3);
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-soft);
+  transition: border-color 0.15s ease;
+}
+.card:hover { border-color: var(--color-border-strong); }
+.card-icon {
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+.card h3 { margin-bottom: var(--space-1); }
+.card p { margin-bottom: 0; color: var(--color-secondary); }
+.card-link {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+
+/* ---- 8. Two-column layout ------------------------------------ */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .split { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+.split-reverse { direction: rtl; }
+.split-reverse > * { direction: ltr; }
+
+/* ---- 9. Lists with markers ------------------------------------ */
+.check-list { list-style: none; display: grid; gap: var(--space-2); }
+.check-list li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  color: var(--color-text);
+}
+.check-list svg { flex-shrink: 0; margin-top: 3px; color: var(--color-accent); }
+
+/* ---- 10. Experience / sector list ------------------------------ */
+.experience-list {
+  list-style: none;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--color-border);
+}
+.experience-list li {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.experience-list dt {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.experience-list dd { margin: 0; color: var(--color-secondary); }
+@media (max-width: 660px) {
+  .experience-list li { grid-template-columns: 1fr; gap: var(--space-1); }
+}
+
+/* ---- 11. Service detail blocks ---------------------------------- */
+.service-block {
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.service-block:last-of-type { border-bottom: none; }
+.service-number {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.service-grid h4 {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-secondary);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+@media (max-width: 760px) {
+  .service-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+
+/* ---- 12. Portrait placeholder ------------------------------------ */
+.portrait-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: var(--color-light-grey);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-secondary);
+}
+
+/* ---- 13. CTA band -------------------------------------------------- */
+.cta-band {
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-6) 0;
+  text-align: center;
+}
+.cta-band h2 { color: #fff; }
+.cta-band .lead { color: #C9D6E3; margin-left: auto; margin-right: auto; }
+.cta-band .btn-row { justify-content: center; }
+.cta-band .btn-secondary {
+  color: #fff;
+  border-color: rgba(255,255,255,0.4);
+}
+.cta-band .btn-secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: #fff;
+}
+
+/* ---- 14. Contact page ------------------------------------------------ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-5);
+}
+@media (max-width: 820px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+.contact-detail {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.contact-detail:first-child { border-top: 1px solid var(--color-border); }
+.contact-detail svg { color: var(--color-primary); flex-shrink: 0; margin-top: 2px; }
+.contact-detail h3 { font-size: var(--fs-body); margin-bottom: 0.2rem; }
+.contact-detail p { margin: 0; color: var(--color-secondary); }
+
+.form-field { margin-bottom: var(--space-3); }
+.form-field label {
+  display: block;
+  font-weight: 600;
+  font-size: var(--fs-small);
+  margin-bottom: 0.4rem;
+  color: var(--color-primary);
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  font-family: var(--font-base);
+  font-size: var(--fs-body);
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  background: #fff;
+}
+.form-field textarea { resize: vertical; min-height: 140px; }
+.form-note {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+  margin-top: var(--space-1);
+}
+.form-status {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.form-status[data-state="success"] { color: #0F766E; }
+
+/* ---- 15. Footer ------------------------------------------------------- */
+.site-footer {
+  background: var(--color-primary);
+  color: #C9D6E3;
+  padding: var(--space-5) 0 var(--space-3);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+}
+@media (max-width: 660px) {
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+.footer-brand { color: #fff; font-weight: 700; font-size: 1.15rem; margin-bottom: var(--space-2); }
+.footer-tagline { max-width: 320px; color: #9FB3C8; margin-bottom: 0; }
+.footer-heading {
+  color: #fff;
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.footer-links { list-style: none; display: grid; gap: 0.6rem; }
+.footer-links a { color: #C9D6E3; }
+.footer-links a:hover { color: #fff; }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  font-size: var(--fs-small);
+  color: #8FA4BA;
+}
+
+/* ---- 16. Page header (interior pages) ---------------------------------- */
+.page-header {
+  padding: var(--space-6) 0 var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+.page-header .lead { max-width: 620px; }
+
+/* ---- 17. Utility spacing --------------------------------------------- */
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }

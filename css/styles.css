@@ -9,7 +9,8 @@
 :root {
   /* Colour — Setu Advisory style guide */
   --color-primary: #102A43;      /* deep navy — text, headings, nav, footer */
-  --color-accent: #D97706;       /* mustard — accents, emphasis, links, CTAs */
+  --color-accent: #D97706;       /* mustard — decorative use only (borders, icons, backgrounds) */
+  --color-accent-text: #92400E;  /* darker amber — WCAG AAA (7:1) safe for text and links */
   --color-green: #2F6F52;        /* green — secondary signal, positive outcomes */
   --color-background: #FFFFFF;
   --color-text: #1F2937;
@@ -71,7 +72,7 @@ h1 { font-size: var(--fs-h1); font-weight: 700; }
 h2 { font-size: var(--fs-h2); }
 h3 { font-size: var(--fs-h3); }
 p { margin: 0 0 var(--space-3); }
-a { color: var(--color-accent); text-decoration: none; }
+a { color: var(--color-accent-text); text-decoration: underline; text-underline-offset: 2px; }
 a:hover { color: var(--color-primary); }
 a:focus-visible,
 button:focus-visible,
@@ -111,7 +112,7 @@ textarea:focus-visible {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   margin-bottom: var(--space-2);
 }
 .lead {
@@ -154,6 +155,7 @@ textarea:focus-visible {
   border-radius: var(--radius);
   border: 1px solid transparent;
   cursor: pointer;
+  text-decoration: none;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 .btn-primary {
@@ -213,14 +215,36 @@ textarea:focus-visible {
   font-size: var(--fs-small);
   padding: 0.5rem 0;
   border-bottom: 2px solid transparent;
+  text-decoration: none;
 }
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
   color: var(--color-primary);
   border-bottom-color: var(--color-accent);
 }
-.nav-cta-group { display: none; gap: 0.6rem; }
-.nav-cta-mobile { display: none; }
+
+/* Nav CTA buttons — a single set of items, styled as buttons at every
+   width, rather than duplicate mobile/desktop markup. */
+.nav-links li.nav-cta-item {
+  border-bottom: none;
+}
+.nav-links li.nav-cta-item a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-base);
+  font-weight: 600;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.nav-links li.nav-cta-item a.btn-primary { background: var(--color-primary); color: #fff; }
+.nav-links li.nav-cta-item a.btn-primary:hover { background: #0B1F32; color: #fff; }
+.nav-links li.nav-cta-item a.btn-secondary { background: transparent; color: var(--color-primary); border-color: var(--color-border-strong); }
+.nav-links li.nav-cta-item a.btn-secondary:hover { border-color: var(--color-primary); background: var(--color-light-grey); }
+
 .nav-toggle {
   display: none;
   background: none;
@@ -249,8 +273,8 @@ textarea:focus-visible {
 .nav-toggle span::after { top: 6px; }
 
 @media (min-width: 1024px) {
-  .nav-cta-group { display: flex; }
-  .nav-cta-group .btn { padding: 0.6rem 1.1rem; font-size: var(--fs-small); }
+  .nav-links li.nav-cta-item { width: auto; }
+  .nav-links li.nav-cta-item a { padding: 0.6rem 1.1rem; font-size: var(--fs-small); width: auto; }
 }
 
 @media (max-width: 1023px) {
@@ -277,7 +301,14 @@ textarea:focus-visible {
     padding: var(--space-2) var(--space-3);
     border-bottom: 1px solid var(--color-border);
   }
-  .nav-links .nav-cta-mobile { display: block; padding: var(--space-2) var(--space-3); }
+  .nav-links li.nav-cta-item { padding: var(--space-1) var(--space-3); }
+  .nav-links li.nav-cta-item a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border-bottom: none;
+    margin: 0.25rem 0;
+  }
 }
 
 /* ---- 6. Hero ------------------------------------------------ */
@@ -331,6 +362,7 @@ textarea:focus-visible {
   margin-top: var(--space-2);
   font-weight: 600;
   font-size: var(--fs-small);
+  text-decoration: none;
 }
 
 /* ---- 8. Two-column layout ------------------------------------ */
@@ -388,7 +420,7 @@ textarea:focus-visible {
 .service-number {
   font-size: var(--fs-small);
   font-weight: 700;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   letter-spacing: 0.06em;
   display: block;
   margin-bottom: var(--space-2);
@@ -523,7 +555,7 @@ textarea:focus-visible {
   margin-bottom: var(--space-2);
 }
 .footer-links { list-style: none; display: grid; gap: 0.6rem; }
-.footer-links a { color: #C9D6E3; }
+.footer-links a { color: #C9D6E3; text-decoration: none; }
 .footer-links a:hover { color: #fff; }
 .footer-bottom {
   display: flex;
@@ -601,7 +633,7 @@ textarea:focus-visible {
 
 /* ---- 18. Brand logo -------------------------------------------------- */
 .brand-logo {
-  height: 42px;
+  height: 46px;
   width: auto;
   display: block;
 }
@@ -749,7 +781,7 @@ textarea:focus-visible {
   font-weight: 600;
   color: var(--color-primary);
 }
-.accordion-trigger:hover { color: var(--color-accent); }
+.accordion-trigger:hover { color: var(--color-accent-text); }
 .accordion-icon {
   flex-shrink: 0;
   color: var(--color-accent);

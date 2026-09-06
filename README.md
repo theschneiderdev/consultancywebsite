@@ -80,10 +80,12 @@ Pages Forms, which would let the contact form actually deliver messages
 instead of opening the visitor's email client. Connects straight to the
 same GitHub repository, so switching later is a five-minute job.
 
-## Contact form
+## Contact page
 
-The form on `contact.html` currently opens the visitor's email client with
-a pre-filled message (a `mailto:` link) — there is no backend yet. To
-collect submissions properly, connect it to a service such as Cloudflare
-Pages Forms, Formspree, or a small Cloudflare Worker, and update the
-`submit` handler in `js/main.js` accordingly.
+There's no contact form — the page just lists direct contact details (email,
+LinkedIn, and the Outlook booking link). `js/main.js` still contains the old
+form-handling code from an earlier version of the page; it's harmless (it
+only runs if a `#contact-form` element exists, which it no longer does) but
+can be deleted if you want to tidy it up. If you ever want a form again,
+a service like Cloudflare Pages Forms or Formspree would let it actually
+submit somewhere, rather than relying on a `mailto:` link.

@@ -13,6 +13,7 @@ as-is.
 ├── about.html             About Setu Advisory (name story, mission, values)
 ├── services.html          The four services, in detail
 ├── case-studies.html      Case studies (currently: Volunteers Initiative Nepal)
+├── insights.html          Insights (articles and guest posts)
 ├── team.html               About Tom (biography)
 ├── contact.html            Contact details and message form
 ├── css/
@@ -89,3 +90,13 @@ only runs if a `#contact-form` element exists, which it no longer does) but
 can be deleted if you want to tidy it up. If you ever want a form again,
 a service like Cloudflare Pages Forms or Formspree would let it actually
 submit somewhere, rather than relying on a `mailto:` link.
+
+## Adding to the Insights page
+
+`insights.html` holds one `<article>` per piece, laid out like the case
+study page: a header (title and details), an optional photo, the text, and
+a "read the original" note. To add another, copy the whole `<article>`
+block, paste it above the existing one (newest first), and edit it.
+Photos should be free to use commercially (Unsplash, for example); keep
+the photographer credit in the `<figcaption>`. `assets/og-insights.jpg`
+is the preview image LinkedIn and others show when the page is shared.
